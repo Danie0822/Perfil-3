@@ -1,0 +1,172 @@
+-- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
+--
+-- Host: localhost    Database: EduManage
+-- ------------------------------------------------------
+-- Server version	10.4.32-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `tb_alumnos`
+--
+
+DROP TABLE IF EXISTS `tb_alumnos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_alumnos` (
+  `id_alumno` varchar(36) NOT NULL DEFAULT uuid(),
+  `carnet_alumno` varchar(10) NOT NULL,
+  `nombre_alumno` varchar(50) NOT NULL,
+  `apellido_alumno` varchar(50) NOT NULL,
+  `edad_alumno` int(11) NOT NULL CHECK (`edad_alumno` >= 0 and `edad_alumno` <= 100),
+  PRIMARY KEY (`id_alumno`),
+  UNIQUE KEY `carnet_alumno` (`carnet_alumno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_alumnos`
+--
+
+LOCK TABLES `tb_alumnos` WRITE;
+/*!40000 ALTER TABLE `tb_alumnos` DISABLE KEYS */;
+INSERT INTO `tb_alumnos` VALUES ('a047624d-d65a-11ee-b494-d8bbc1ad5156','20230001','Maria','Garcia',20),('a0477c0e-d65a-11ee-b494-d8bbc1ad5156','20230002','Juan','Rodriguez',21),('a047a9d8-d65a-11ee-b494-d8bbc1ad5156','20230003','Ana','Martinez',22),('a047d517-d65a-11ee-b494-d8bbc1ad5156','20230004','Carlos','Lopez',19),('a04800c3-d65a-11ee-b494-d8bbc1ad5156','20230005','Laura','Perez',20),('a0484bb1-d65a-11ee-b494-d8bbc1ad5156','20230006','Pedro','Gonzalez',21),('a048cf0a-d65a-11ee-b494-d8bbc1ad5156','20230007','Sofia','Sanchez',20),('a0492c2e-d65a-11ee-b494-d8bbc1ad5156','20230008','Diego','Torres',19),('a0494eb2-d65a-11ee-b494-d8bbc1ad5156','20230009','Valeria','Ramirez',20),('a04972ac-d65a-11ee-b494-d8bbc1ad5156','20230010','Daniel','Flores',21),('a049914a-d65a-11ee-b494-d8bbc1ad5156','20230011','Mariana','Diaz',20),('a049b22a-d65a-11ee-b494-d8bbc1ad5156','20230012','Alejandro','Hernandez',22),('a049cf19-d65a-11ee-b494-d8bbc1ad5156','20230013','Fernanda','Gomez',19),('a049ee67-d65a-11ee-b494-d8bbc1ad5156','20230014','Gabriel','Muñoz',20),('a04a0d51-d65a-11ee-b494-d8bbc1ad5156','20230015','Andrea','Castro',21);
+/*!40000 ALTER TABLE `tb_alumnos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tb_calificaciones`
+--
+
+DROP TABLE IF EXISTS `tb_calificaciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_calificaciones` (
+  `id_calificacion` varchar(36) NOT NULL DEFAULT uuid(),
+  `id_inscripcion` varchar(36) NOT NULL,
+  `calificacion_final` decimal(5,2) NOT NULL,
+  `fecha_calificacion` date NOT NULL DEFAULT curdate(),
+  PRIMARY KEY (`id_calificacion`),
+  KEY `id_inscripcion` (`id_inscripcion`),
+  CONSTRAINT `tb_calificaciones_ibfk_1` FOREIGN KEY (`id_inscripcion`) REFERENCES `tb_inscripciones` (`id_inscripcion`),
+  CONSTRAINT `positivo` CHECK (`calificacion_final` >= 0 and `calificacion_final` <= 100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_calificaciones`
+--
+
+LOCK TABLES `tb_calificaciones` WRITE;
+/*!40000 ALTER TABLE `tb_calificaciones` DISABLE KEYS */;
+INSERT INTO `tb_calificaciones` VALUES ('008c6a53-d65c-11ee-b494-d8bbc1ad5156','6d5328e8-d65b-11ee-b494-d8bbc1ad5156',85.50,'2024-02-28'),('008cb453-d65c-11ee-b494-d8bbc1ad5156','6d4fdfde-d65b-11ee-b494-d8bbc1ad5156',70.20,'2024-02-28'),('008cf45b-d65c-11ee-b494-d8bbc1ad5156','6d51ccdd-d65b-11ee-b494-d8bbc1ad5156',95.80,'2024-02-28'),('008d9e45-d65c-11ee-b494-d8bbc1ad5156','6d4ebdab-d65b-11ee-b494-d8bbc1ad5156',60.00,'2024-02-28'),('008de4d4-d65c-11ee-b494-d8bbc1ad5156','6d525361-d65b-11ee-b494-d8bbc1ad5156',78.90,'2024-02-28'),('008e1db1-d65c-11ee-b494-d8bbc1ad5156','6d4e2c85-d65b-11ee-b494-d8bbc1ad5156',88.30,'2024-02-28'),('008e6863-d65c-11ee-b494-d8bbc1ad5156','6d4d0ba3-d65b-11ee-b494-d8bbc1ad5156',92.10,'2024-02-28'),('008ef027-d65c-11ee-b494-d8bbc1ad5156','6d5026dd-d65b-11ee-b494-d8bbc1ad5156',85.70,'2024-02-28'),('008f7349-d65c-11ee-b494-d8bbc1ad5156','6d4cb2a8-d65b-11ee-b494-d8bbc1ad5156',70.50,'2024-02-28'),('008ff7b1-d65c-11ee-b494-d8bbc1ad5156','6d52dc9b-d65b-11ee-b494-d8bbc1ad5156',78.00,'2024-02-28'),('00908134-d65c-11ee-b494-d8bbc1ad5156','6d514d33-d65b-11ee-b494-d8bbc1ad5156',95.00,'2024-02-28'),('0090fb25-d65c-11ee-b494-d8bbc1ad5156','6d50bf39-d65b-11ee-b494-d8bbc1ad5156',82.40,'2024-02-28'),('0091a508-d65c-11ee-b494-d8bbc1ad5156','6d4d60ea-d65b-11ee-b494-d8bbc1ad5156',67.80,'2024-02-28'),('00923d41-d65c-11ee-b494-d8bbc1ad5156','6d536d57-d65b-11ee-b494-d8bbc1ad5156',90.60,'2024-02-28'),('0092bfd1-d65c-11ee-b494-d8bbc1ad5156','6d4f51af-d65b-11ee-b494-d8bbc1ad5156',75.30,'2024-02-28');
+/*!40000 ALTER TABLE `tb_calificaciones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tb_inscripciones`
+--
+
+DROP TABLE IF EXISTS `tb_inscripciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_inscripciones` (
+  `id_inscripcion` varchar(36) NOT NULL DEFAULT uuid(),
+  `id_alumno` varchar(36) NOT NULL,
+  `id_materia` varchar(36) NOT NULL,
+  `fecha_inscripcion` date NOT NULL DEFAULT curdate(),
+  `estado` enum('Activo','Inactivo') NOT NULL,
+  PRIMARY KEY (`id_inscripcion`),
+  UNIQUE KEY `id_alumno` (`id_alumno`,`id_materia`),
+  KEY `id_materia` (`id_materia`),
+  CONSTRAINT `tb_inscripciones_ibfk_1` FOREIGN KEY (`id_alumno`) REFERENCES `tb_alumnos` (`id_alumno`),
+  CONSTRAINT `tb_inscripciones_ibfk_2` FOREIGN KEY (`id_materia`) REFERENCES `tb_materias` (`id_materia`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_inscripciones`
+--
+
+LOCK TABLES `tb_inscripciones` WRITE;
+/*!40000 ALTER TABLE `tb_inscripciones` DISABLE KEYS */;
+INSERT INTO `tb_inscripciones` VALUES ('6d4cb2a8-d65b-11ee-b494-d8bbc1ad5156','a047624d-d65a-11ee-b494-d8bbc1ad5156','e0b8cc7b-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d4d0ba3-d65b-11ee-b494-d8bbc1ad5156','a0477c0e-d65a-11ee-b494-d8bbc1ad5156','e0b7e8c3-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d4d60ea-d65b-11ee-b494-d8bbc1ad5156','a047a9d8-d65a-11ee-b494-d8bbc1ad5156','e0baa0f9-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d4e2c85-d65b-11ee-b494-d8bbc1ad5156','a047d517-d65a-11ee-b494-d8bbc1ad5156','e0b74830-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d4ebdab-d65b-11ee-b494-d8bbc1ad5156','a04800c3-d65a-11ee-b494-d8bbc1ad5156','e0b6b7ec-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d4f51af-d65b-11ee-b494-d8bbc1ad5156','a0484bb1-d65a-11ee-b494-d8bbc1ad5156','e0bbafb9-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d4fdfde-d65b-11ee-b494-d8bbc1ad5156','a048cf0a-d65a-11ee-b494-d8bbc1ad5156','e0b5d57d-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d5026dd-d65b-11ee-b494-d8bbc1ad5156','a0492c2e-d65a-11ee-b494-d8bbc1ad5156','e0b83baa-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d50bf39-d65b-11ee-b494-d8bbc1ad5156','a0494eb2-d65a-11ee-b494-d8bbc1ad5156','e0ba1b1f-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d514d33-d65b-11ee-b494-d8bbc1ad5156','a04972ac-d65a-11ee-b494-d8bbc1ad5156','e0b99882-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d51ccdd-d65b-11ee-b494-d8bbc1ad5156','a049914a-d65a-11ee-b494-d8bbc1ad5156','e0b63c49-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d525361-d65b-11ee-b494-d8bbc1ad5156','a049b22a-d65a-11ee-b494-d8bbc1ad5156','e0b6fb67-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d52dc9b-d65b-11ee-b494-d8bbc1ad5156','a049cf19-d65a-11ee-b494-d8bbc1ad5156','e0b911dc-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d5328e8-d65b-11ee-b494-d8bbc1ad5156','a049ee67-d65a-11ee-b494-d8bbc1ad5156','e0b5008f-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo'),('6d536d57-d65b-11ee-b494-d8bbc1ad5156','a04a0d51-d65a-11ee-b494-d8bbc1ad5156','e0bb2020-d65a-11ee-b494-d8bbc1ad5156','2024-02-28','Activo');
+/*!40000 ALTER TABLE `tb_inscripciones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tb_materias`
+--
+
+DROP TABLE IF EXISTS `tb_materias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_materias` (
+  `id_materia` varchar(36) NOT NULL DEFAULT uuid(),
+  `nombre_materia` varchar(100) NOT NULL,
+  `grupo_materia` int(11) NOT NULL CHECK (`grupo_materia` > 0),
+  `id_profesor` varchar(36) DEFAULT NULL,
+  `cupos` int(11) DEFAULT NULL CHECK (`cupos` >= 0),
+  PRIMARY KEY (`id_materia`),
+  UNIQUE KEY `nombre_materia` (`nombre_materia`),
+  KEY `id_profesor` (`id_profesor`),
+  CONSTRAINT `tb_materias_ibfk_1` FOREIGN KEY (`id_profesor`) REFERENCES `tb_profesores` (`id_profesor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_materias`
+--
+
+LOCK TABLES `tb_materias` WRITE;
+/*!40000 ALTER TABLE `tb_materias` DISABLE KEYS */;
+INSERT INTO `tb_materias` VALUES ('e0b5008f-d65a-11ee-b494-d8bbc1ad5156','Matemáticas I',1,'a0470274-d65a-11ee-b494-d8bbc1ad5156',30),('e0b5d57d-d65a-11ee-b494-d8bbc1ad5156','Matemáticas II',2,'a045f3ab-d65a-11ee-b494-d8bbc1ad5156',25),('e0b63c49-d65a-11ee-b494-d8bbc1ad5156','Física I',1,'a046991a-d65a-11ee-b494-d8bbc1ad5156',30),('e0b6b7ec-d65a-11ee-b494-d8bbc1ad5156','Física II',2,'a045b44c-d65a-11ee-b494-d8bbc1ad5156',25),('e0b6fb67-d65a-11ee-b494-d8bbc1ad5156','Química I',1,'a046bf29-d65a-11ee-b494-d8bbc1ad5156',30),('e0b74830-d65a-11ee-b494-d8bbc1ad5156','Química II',2,'a0456da8-d65a-11ee-b494-d8bbc1ad5156',25),('e0b7e8c3-d65a-11ee-b494-d8bbc1ad5156','Historia',1,'a04508a7-d65a-11ee-b494-d8bbc1ad5156',30),('e0b83baa-d65a-11ee-b494-d8bbc1ad5156','Geografía',2,'a0461aa4-d65a-11ee-b494-d8bbc1ad5156',25),('e0b8cc7b-d65a-11ee-b494-d8bbc1ad5156','Literatura',1,'a044eb31-d65a-11ee-b494-d8bbc1ad5156',30),('e0b911dc-d65a-11ee-b494-d8bbc1ad5156','Arte',2,'a046db6a-d65a-11ee-b494-d8bbc1ad5156',25),('e0b99882-d65a-11ee-b494-d8bbc1ad5156','Biología',1,'a046707f-d65a-11ee-b494-d8bbc1ad5156',30),('e0ba1b1f-d65a-11ee-b494-d8bbc1ad5156','Educación Física',2,'a0464245-d65a-11ee-b494-d8bbc1ad5156',25),('e0baa0f9-d65a-11ee-b494-d8bbc1ad5156','Inglés I',1,'a0452b57-d65a-11ee-b494-d8bbc1ad5156',30),('e0bb2020-d65a-11ee-b494-d8bbc1ad5156','Inglés II',2,'a04720f3-d65a-11ee-b494-d8bbc1ad5156',25),('e0bbafb9-d65a-11ee-b494-d8bbc1ad5156','Informática',1,'a045d51f-d65a-11ee-b494-d8bbc1ad5156',30);
+/*!40000 ALTER TABLE `tb_materias` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tb_profesores`
+--
+
+DROP TABLE IF EXISTS `tb_profesores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_profesores` (
+  `id_profesor` varchar(36) NOT NULL DEFAULT uuid(),
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `correo_electronico` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_profesor`),
+  UNIQUE KEY `correo_electronico` (`correo_electronico`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_profesores`
+--
+
+LOCK TABLES `tb_profesores` WRITE;
+/*!40000 ALTER TABLE `tb_profesores` DISABLE KEYS */;
+INSERT INTO `tb_profesores` VALUES ('a044eb31-d65a-11ee-b494-d8bbc1ad5156','John','Doe','john.doe@example.com'),('a04508a7-d65a-11ee-b494-d8bbc1ad5156','Jane','Smith','jane.smith@example.com'),('a0452b57-d65a-11ee-b494-d8bbc1ad5156','Michael','Johnson','michael.johnson@example.com'),('a0456da8-d65a-11ee-b494-d8bbc1ad5156','Emily','Brown','emily.brown@example.com'),('a045b44c-d65a-11ee-b494-d8bbc1ad5156','David','Wilson','david.wilson@example.com'),('a045d51f-d65a-11ee-b494-d8bbc1ad5156','Sarah','Martinez','sarah.martinez@example.com'),('a045f3ab-d65a-11ee-b494-d8bbc1ad5156','Christopher','Anderson','christopher.anderson@example.com'),('a0461aa4-d65a-11ee-b494-d8bbc1ad5156','Jessica','Taylor','jessica.taylor@example.com'),('a0464245-d65a-11ee-b494-d8bbc1ad5156','Matthew','Thomas','matthew.thomas@example.com'),('a046707f-d65a-11ee-b494-d8bbc1ad5156','Laura','Hernandez','laura.hernandez@example.com'),('a046991a-d65a-11ee-b494-d8bbc1ad5156','Daniel','Moore','daniel.moore@example.com'),('a046bf29-d65a-11ee-b494-d8bbc1ad5156','Elizabeth','Walker','elizabeth.walker@example.com'),('a046db6a-d65a-11ee-b494-d8bbc1ad5156','Kevin','Young','kevin.young@example.com'),('a0470274-d65a-11ee-b494-d8bbc1ad5156','Amanda','White','amanda.white@example.com'),('a04720f3-d65a-11ee-b494-d8bbc1ad5156','Ryan','King','ryan.king@example.com');
+/*!40000 ALTER TABLE `tb_profesores` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-02-28 11:26:17
