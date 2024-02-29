@@ -135,7 +135,7 @@ DELIMITER ;
 DELIMITER //
 
 DELIMITER //
--- TRIGGER
+
 CREATE TRIGGER actualizar_cupos_despues_inscripcion
 AFTER INSERT ON tb_inscripciones
 FOR EACH ROW
@@ -145,8 +145,9 @@ BEGIN
     WHERE id_materia = NEW.id_materia;
 END;
 
+//
 
-DELIMITER ;
+DELIMITER ;
 DELIMITER //
 
 -- Agregar profesor
